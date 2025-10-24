@@ -1,0 +1,82 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  categoryId: Int!
+  name: String!
+  products: [Product!]!
+}
+
+input CreateCategoryInput {
+  name: String!
+}
+
+input CreateProductInput {
+  categoryName: String
+  code: String
+  currency: String!
+  description: String
+  image: String
+  price: Int!
+  title: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
+input LoginUserInput {
+  password: String!
+  username: String!
+}
+
+type Mutation {
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
+  logout: Boolean!
+  remove(id: Float!): Boolean!
+  removeCategory(id: Int!): Category!
+  signup(loginUserInput: LoginUserInput!): User!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+}
+
+type Product {
+  categoryId: Int
+  code: String
+  createdAt: DateTime!
+  currency: String!
+  description: String
+  id: Int!
+  image: String
+  price: Int!
+  rating: Int
+  sales: Int
+  title: String!
+  updatedAt: DateTime!
+}
+
+type Query {
+  categories: [Category!]!
+  category(name: String!): Category!
+  products: [Product!]!
+  user(username: String!): User!
+  users: [User!]!
+}
+
+input UpdateCategoryInput {
+  id: Int!
+  name: String
+}
+
+type User {
+  id: Int!
+  username: String!
+}
