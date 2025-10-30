@@ -19,11 +19,17 @@ export class CategoryService {
     return this.prisma.category.findUnique({ where: { name } });
   }
 
+  async findOneById(categoryId: number) {
+    return this.prisma.category.findUnique({ where: { categoryId },
+    include: { products: true } });
+  }
+
   update(id: number, updateCategoryInput: UpdateCategoryInput) {
     return `This action updates a #${id} category`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(categoryId: number): Promise<boolean> {
+    const res = await this.prisma.category.delete({ where: { categoryId } });
+    return true;
   }
 }

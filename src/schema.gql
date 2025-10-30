@@ -15,11 +15,23 @@ input CreateCategoryInput {
 input CreateProductInput {
   categoryName: String
   code: String
-  currency: String!
   description: String
   image: String
   price: Int!
   title: String!
+}
+
+input CreateStoreInput {
+  currency: String!
+  name: String!
+}
+
+type Currency {
+  code: String!
+  countries: [String!]!
+  currency: String!
+  digits: Float!
+  number: String!
 }
 
 """
@@ -40,19 +52,23 @@ input LoginUserInput {
 type Mutation {
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
   createProduct(createProductInput: CreateProductInput!): Product!
+  createStore(createStoreInput: CreateStoreInput!): Store!
   login(loginUserInput: LoginUserInput!): LoginResponse!
   logout: Boolean!
   remove(id: Float!): Boolean!
-  removeCategory(id: Int!): Category!
+  removeCategory(id: Int!): Boolean!
+  removeStore(id: Int!): Store!
   signup(loginUserInput: LoginUserInput!): User!
+  update(updateProductInput: UpdateProductInput!): Product!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  updateStore(updateStoreInput: UpdateStoreInput!): Store!
 }
 
 type Product {
+  category: Category
   categoryId: Int
   code: String
   createdAt: DateTime!
-  currency: String!
   description: String
   id: Int!
   image: String
@@ -66,12 +82,39 @@ type Product {
 type Query {
   categories: [Category!]!
   category(name: String!): Category!
+  currencies: [Currency!]!
+  currency(code: String!): Currency
   products: [Product!]!
+  store(id: Int!): Store!
   user(username: String!): User!
   users: [User!]!
 }
 
+type Store {
+  currency: String!
+  id: Int!
+  isActive: Boolean!
+  name: String!
+  products: [Product!]!
+}
+
 input UpdateCategoryInput {
+  id: Int!
+  name: String
+}
+
+input UpdateProductInput {
+  categoryName: String
+  code: String
+  description: String
+  id: Int!
+  image: String
+  price: Int
+  title: String
+}
+
+input UpdateStoreInput {
+  currency: String
   id: Int!
   name: String
 }

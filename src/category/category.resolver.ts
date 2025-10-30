@@ -19,8 +19,8 @@ export class CategoryResolver {
   }
 
   @Query(() => Category, { name: 'category' })
-  findOne(@Args('name', { type: () => String }) name: string) {
-    return this.categoryService.findOne(name);
+  async findOne(@Args('name', { type: () => String }) name: string) {
+    return await this.categoryService.findOne(name);
   }
 
   @Mutation(() => Category)
@@ -28,9 +28,9 @@ export class CategoryResolver {
     return this.categoryService.update(updateCategoryInput.id, updateCategoryInput);
   }
 
-  @Mutation(() => Category)
-  removeCategory(@Args('id', { type: () => Int }) id: number): boolean {
-    const res = this.categoryService.remove(id);
+  @Mutation(() => Boolean)
+  async removeCategory(@Args('id', { type: () => Int }) id: number): Promise<boolean> {
+    const res = await this.categoryService.remove(id);
     return !!res;
   }
 }

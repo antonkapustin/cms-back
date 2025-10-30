@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { CategoryModule } from './category/category.module';
+import { StoreModule } from './store/store.module';
+import { CurrencyModule } from './currency/currency.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { CategoryModule } from './category/category.module';
     ProductsModule,
     PrismaModule,
     CategoryModule,
+    StoreModule,
+    CurrencyModule,
     // SalesModule,
   ],
 })

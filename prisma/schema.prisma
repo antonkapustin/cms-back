@@ -16,6 +16,16 @@ model User {
   @@map("user")
 }
 
+model Store {
+  id   Int @id @default(autoincrement())
+  name String
+  currency String
+  isActive Boolean @default(true)
+  products  Product[]
+
+  @@map("stores")
+}
+
 model Category {
   categoryId Int       @id @default(autoincrement())
   name       String    @unique
@@ -32,10 +42,11 @@ model Product {
   sales       Int?
   rating      Int?
   categoryId  Int?
-  category    Category? @relation(fields: [categoryId], references: [categoryId])
+  category    Category? @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
   image       String?
   code        String?
-  currency    String
+  storeId     Int?      
+  store       Store?    @relation(fields: [storeId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 

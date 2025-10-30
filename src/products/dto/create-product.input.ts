@@ -1,6 +1,6 @@
-import { Field, Float, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
-@InputType()
+@InputType({ isAbstract: true })
 export class CreateProductInput {
   @Field()
   title: string;
@@ -17,8 +17,6 @@ export class CreateProductInput {
   @Field(() => String, { nullable: true })
   categoryName?: string | null;
 
-  @Field()
-  currency: string;
 
   @Field(() => String, { nullable: true })
   image?: string | null;

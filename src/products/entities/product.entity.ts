@@ -1,16 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-
-@ObjectType()
-export class Category {
-  @Field(() => Int)
-  categoryId: number;
-
-  @Field()
-  name: string;
-
-  @Field(() => [Product], { nullable: true })
-  products?: Product[] | null;
-}
+import { Category } from "src/category/entities/category.entity";
 
 @ObjectType()
 export class Product {
@@ -35,14 +24,14 @@ export class Product {
   @Field(() => Int, { nullable: true })
   categoryId?: number | null;
 
+  @Field(() => Category, { nullable: true })
+  category?: Category | null; 
+
   @Field(() => String, { nullable: true })
   image?: string | null;
 
   @Field(() => String, { nullable: true })
   code?: string | null;
-
-  @Field()
-  currency: string;
 
   @Field()
   createdAt: Date;
